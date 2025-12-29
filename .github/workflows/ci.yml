@@ -23,6 +23,6 @@ jobs:
         with:
           context: .
           push: true
-          tags: ghcr.io/${{ github.repository_owner }}/miriyam-studio:latest
+          tags: ghcr.io/${{ toLower(github.repository_owner) }}/miriyam-studio:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
