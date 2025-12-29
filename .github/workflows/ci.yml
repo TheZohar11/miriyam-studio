@@ -18,11 +18,16 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Set lowercase owner
+        id: vars
+        run: |
+          echo "owner=${GITHUB_REPOSITORY_OWNER,,}" >> $GITHUB_OUTPUT
+
       - name: Build and push
         uses: docker/build-push-action@v4
         with:
           context: .
           push: true
-          tags: ghcr.io/${{ toLower(github.repository_owner) }}/miriyam-studio:latest
+          tags: ghcr.io/${{ steps.vars.outputs.owner }}/miriyam-studio:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
