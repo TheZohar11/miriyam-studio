@@ -1,0 +1,151 @@
+header {
+  background: linear-gradient(
+    to right,
+    rgb(125, 149, 218),
+    rgb(140, 172, 230),
+    rgb(78, 171, 252)
+  );
+  color: black;
+  font-size: 1.2em;
+  padding: 15px;
+  border-radius: 8px;
+}
+body {
+  font-family: "Montserrat", serif;
+  background-image: url(2222.jpg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 100px;
+}
+a {
+  margin-right: 15px;
+  font-size: 18px;
+  font-weight: bold;
+}
+.new {
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(
+    to right,
+    rgb(125, 149, 218),
+    rgb(140, 172, 230),
+    rgb(78, 171, 252)
+  );
+  color: black;
+  font-size: 1.2em;
+  padding: 15px;
+  border-radius: 8px;
+  gap: 10px;
+  width: 200px;
+  margin: 0 auto;
+}
+button {
+  font-family: "Montserrat", serif;
+  background-color: rgb(247, 255, 189);
+  padding: 6px;
+  border-radius: 6px;
+  border: 2px solid black;
+}
+#studio {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+input {
+  font-family: "Montserrat", serif;
+}
+ul {
+}
+li {
+  background-color: rgb(214, 233, 250);
+  border-radius: 6px;
+  border: 4px solid black;
+  display: inline-block;
+  padding: 10px;
+  margin: 10px;
+  width: auto;
+}
+li strong {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+div {
+  display: flex; /* מיישר את האלמנטים בצורה אופקית */
+  justify-content: space-between; /* אם צריך ריווח */
+  align-items: center; /* מיישר אנכית */
+  gap: 5px; /* רווח בין הטקסט לתאריך */
+}
+span {
+  display: inline-block;
+}
+#remove {
+  margin-left: 45%;
+  margin-top: 10px;
+  padding: 5px;
+  border-radius: 4px;
+  background-color: rgb(247, 255, 189);
+}
+.check-container {
+  display: flex;
+  flex-direction: column; /* מסדר את השורות אחת אחרי השנייה */
+  align-items: center; /* מיישר את השורות למרכז */
+}
+
+.check-row {
+  display: flex;
+  justify-content: center; /* מיישר את הצ'קבוקסים בשורה */
+}
+
+.check {
+  margin-right: 10px;
+  margin-bottom: 5px;
+}
+
+.cancellation,
+.remove {
+  display: none; /* מוסתר כברירת מחדל */
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  flex-direction: column;
+  background: linear-gradient(
+    to right,
+    rgb(125, 149, 218),
+    rgb(140, 172, 230),
+    rgb(78, 171, 252)
+  );
+  border-radius: 8px;
+  padding: 20px;
+  z-index: 1000;
+}
+
+.overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
+
+footer {
+  color: #fff;
+  text-align: center;
+  padding: 20px;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  flex: 1;
+}

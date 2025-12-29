@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link href="style.css" rel="stylesheet" />
+    <title>maryuma art</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <header>
+      <nav>
+        <a>workshop</a>
+        <a>studio time</a>
+        <a>single class</a>
+      </nav>
+    </header>
+    <h1 id="studio">studio time</h1>
+    <section class="new">
+      <label for="name-input">name:</label>
+      <input id="name-input" />
+      <label for="date-input">date:</label>
+      <input id="date-input" type="date" placeholder="dd/mm/yyyy" />
+      <button id="new-costumer">add</button>
+    </section>
+    <ul id="card-owners">
+      <li>
+        <strong>maryuma</strong>
+        <div>
+          <span>purchased on:</span>
+          <span class="date">4.12.2026</span>
+        </div>
+        <div>
+          <span>expired on:</span>
+          <span class="date">4.12.2026</span>
+        </div>
+        <div class="check-container">
+          <div class="check-row">
+            <input type="checkbox" class="check" />
+            <input type="checkbox" class="check" />
+            <input type="checkbox" class="check" />
+            <input type="checkbox" class="check" />
+            <input type="checkbox" class="check" />
+          </div>
+          <div class="check-row">
+            <input type="checkbox" class="check" />
+            <input type="checkbox" class="check" />
+            <input type="checkbox" class="check" />
+            <input type="checkbox" class="check" />
+            <input type="checkbox" class="check" />
+          </div>
+        </div>
+
+        <button id="remove">X</button>
+      </li>
+    </ul>
+
+    <div id="overlay" class="overlay"></div>
+
+    <div class="cancellation" id="modal">
+      <p>Are you sure you want to cancel?</p>
+      <button id="yes">YES</button>
+      <button id="no">NO</button>
+    </div>
+
+    <div class="remove" id="modal2" style="display: none">
+      <p>Are you sure you want to remove student?</p>
+      <button id="delete">YES</button>
+      <button id="undelete">NO</button>
+    </div>
+
+    <!--<a href="index.html">back to home</a>-->
+    <script src="app.js"></script>
+    <footer>
+      <p id="Copyright" class="Copyright text">
+        Copyright &copy; 2024 by Zohar Simhon. All rights reserved.
+      </p>
+    </footer>
+  </body>
+</html>

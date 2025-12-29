@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: miriyam-web
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: miriyam-web
+  template:
+    metadata:
+      labels:
+        app: miriyam-web
+    spec:
+      containers:
+        - name: web
+          image: ghcr.io/zohar/miriyam-studio:latest
+          ports:
+            - containerPort: 5501
+          envFrom:
+            - secretRef:
+                name: app-secrets
+          readinessProbe:
+            httpGet:
+              path: /cards
+              port: 5501
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /cards
+              port: 5501
+            initialDelaySeconds: 30
+            periodSeconds: 30
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"

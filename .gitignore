@@ -1,0 +1,15 @@
+node_modules/
+.env
+.env.local
+.env.*.local
+npm-debug.log
+.DS_Store
+dist/
+build/
+.vscode/
+.idea/
+*.log
+k8s/secret*.yaml
+secret-example.local.yaml
+k8s/secret*.yaml
+secret-example.local.yaml
