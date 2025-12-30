@@ -15,6 +15,7 @@ spec:
       containers:
         - name: web
           image: ghcr.io/zohar/miriyam-studio:latest
+          imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 5501
           envFrom:
