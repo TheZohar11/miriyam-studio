@@ -1,66 +1,102 @@
-Project: Miriyam Web
+# Miriyam Studio
 
-- Multi-stage production `Dockerfile` with HEALTHCHECK and non-root runtime
-- GitHub Actions workflow at `.github/workflows/ci.yml` to build and push image to GHCR
-- Kubernetes manifests under `k8s/` (Deployment, Service, HPA) as minimal skeleton
-- `README.md` with run/cleanup commands
+Multi-user card management app for tracking studio time sessions.
 
-Quick commands
-
-Stop all running containers
+## Project Structure
 
 ```
-docker ps -q | ForEach-Object { docker stop $_ }
+miriyam-studio/
+  server.js          # Express API (auth + cards)
+  package.json
+  .env               # MONGO_URI, JWT_SECRET, FRONTEND_URL, PORT
+  frontend/          # Vite vanilla JS app
+    index.html       # Dashboard (protected)
+    login.html       # Login page
+    register.html    # Registration page
+    src/
+      app.js         # Card management logic
+      auth.js        # Token storage, apiFetch wrapper
+      login.js       # Login form handler
+      register.js    # Register form handler
+      style.css      # All styles
+    public/
+      2222.jpg        # Background image
 ```
 
-Remove all containers
+## Local Development
 
-```
-docker ps -a -q | ForEach-Object { docker rm $_ }
-```
+### Backend
 
-Remove the app image
-
-```
-docker rmi miriyam-studio -f
+```bash
+npm install
+# Create .env with: MONGO_URI, JWT_SECRET, FRONTEND_URL=http://localhost:5173, PORT=5501
+node server.js
 ```
 
-Rebuild image
+### Frontend
 
+```bash
+cd frontend
+npm install
+# Create frontend/.env with: VITE_API_URL=http://localhost:5501
+npm run dev
 ```
+
+Open `http://localhost:5173` in the browser.
+
+## Deployment
+
+### Backend on Render
+
+1. Create a **Web Service** on [render.com](https://render.com)
+2. Connect the GitHub repository
+3. Settings:
+   - **Root directory:** (leave empty / repo root)
+   - **Build command:** `npm install`
+   - **Start command:** `node server.js`
+4. Environment variables:
+   - `MONGO_URI` — your MongoDB Atlas connection string
+   - `JWT_SECRET` — a random secret string
+   - `FRONTEND_URL` — your Vercel deployment URL (e.g. `https://miriyam-studio.vercel.app`)
+   - `PORT` — `5501`
+
+### Frontend on Vercel
+
+1. Import the repository on [vercel.com](https://vercel.com)
+2. Settings:
+   - **Root directory:** `frontend`
+   - **Framework preset:** Vite
+   - **Build command:** `npm run build`
+   - **Output directory:** `dist`
+3. Environment variables:
+   - `VITE_API_URL` — your Render service URL (e.g. `https://miriyam-studio.onrender.com`)
+
+### Post-deployment
+
+After both services are live, update `FRONTEND_URL` on Render to match the actual Vercel domain so CORS works correctly.
+
+## API Endpoints
+
+All `/cards` routes require `Authorization: Bearer <token>` header.
+
+| Method   | Path             | Description              |
+| -------- | ---------------- | ------------------------ |
+| POST     | /auth/register   | Register a new user      |
+| POST     | /auth/login      | Login, returns JWT       |
+| GET      | /cards           | Get user's cards         |
+| POST     | /cards           | Create a new card        |
+| PATCH    | /cards/:id       | Update card checkboxes   |
+| DELETE   | /cards/:id       | Delete a card            |
+
+## Docker (optional)
+
+```bash
 docker build -t miriyam-studio .
-```
-
-Run with docker (reads `.env` in this repo)
-
-```
 docker run -d -p 5501:5501 --env-file .env --name miriyam-studio miriyam-studio
 ```
 
-Run with docker-compose
+## Notes
 
-```
-docker-compose up -d --build
-```
-
-Kubernetes
-
-```
-kubectl apply -f k8s/deployment.yaml
-kubectl apply -f k8s/service.yaml
-kubectl apply -f k8s/hpa.yaml
-```
-
-Notes
-
-- DO NOT commit secret files. Use the `.env` file for local development (listed in `.gitignore`).
-- To deploy to Kubernetes, create a secret locally and never commit it:
-
-```
-kubectl create secret generic app-secrets --from-literal=MONGO_URI="your-mongo-uri-here"
-kubectl apply -f k8s/deployment.yaml
-kubectl apply -f k8s/service.yaml
-kubectl apply -f k8s/hpa.yaml
-```
-
-- CI workflow pushes to GHCR; configure repository permissions if you want automated publishes.
+- Do NOT commit `.env` files (they are listed in `.gitignore`)
+- JWT tokens expire after 7 days
+- Each user only sees their own cards
