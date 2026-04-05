@@ -48,55 +48,15 @@ Open `http://localhost:5173` in the browser.
 
 ### Backend on Render
 
-1. Create a **Web Service** on [render.com](https://render.com)
-2. Connect the GitHub repository
-3. Settings:
-   - **Root directory:** (leave empty / repo root)
-   - **Build command:** `npm install`
-   - **Start command:** `node server.js`
-4. Environment variables:
-   - `MONGO_URI` — your MongoDB Atlas connection string
-   - `JWT_SECRET` — a random secret string
-   - `FRONTEND_URL` — your Vercel deployment URL (e.g. `https://miriyam-studio.vercel.app`)
-   - `PORT` — `5501`
+https://miriyam-studio.onrender.com
 
-### Frontend on Vercel
+### Frontend on Render
 
-1. Import the repository on [vercel.com](https://vercel.com)
-2. Settings:
-   - **Root directory:** `frontend`
-   - **Framework preset:** Vite
-   - **Build command:** `npm run build`
-   - **Output directory:** `dist`
-3. Environment variables:
-   - `VITE_API_URL` — your Render service URL (e.g. `https://miriyam-studio.onrender.com`)
+https://miriyam-studio-front.onrender.com
 
-### Post-deployment
-
-After both services are live, update `FRONTEND_URL` on Render to match the actual Vercel domain so CORS works correctly.
-
-## API Endpoints
-
-All `/cards` routes require `Authorization: Bearer <token>` header.
-
-| Method   | Path             | Description              |
-| -------- | ---------------- | ------------------------ |
-| POST     | /auth/register   | Register a new user      |
-| POST     | /auth/login      | Login, returns JWT       |
-| GET      | /cards           | Get user's cards         |
-| POST     | /cards           | Create a new card        |
-| PATCH    | /cards/:id       | Update card checkboxes   |
-| DELETE   | /cards/:id       | Delete a card            |
-
-## Docker (optional)
+## Docker
 
 ```bash
 docker build -t miriyam-studio .
 docker run -d -p 5501:5501 --env-file .env --name miriyam-studio miriyam-studio
 ```
-
-## Notes
-
-- Do NOT commit `.env` files (they are listed in `.gitignore`)
-- JWT tokens expire after 7 days
-- Each user only sees their own cards
